@@ -75,7 +75,7 @@ const Page = () : React.ReactElement => {
                 toast.success("Sign up successful", {
                     description: "You can now sign in with your new account",
                 });
-                router.push("/sign-in");
+                router.replace(`/verify/${username}`);
             }
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
