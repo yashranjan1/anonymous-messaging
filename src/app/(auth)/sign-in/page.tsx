@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 
 import { z } from "zod";
 import { useSession } from 'next-auth/react';
+import Link from "next/link";
 
 const page = () => {
 
@@ -35,7 +36,7 @@ const page = () => {
 
     return (
         <div className='flex flex-col items-center justify-center h-screen font-[family-name:var(--font-geist-sans)]'>
-            <Card className='w-96 p-5'>
+            <Card className='w-96 p-5 drop-shadow-lg'>
                 <CardHeader className='font-bold text-2xl text-center'>
                     <CardTitle className='r'>Login</CardTitle>
                 </CardHeader>
@@ -70,7 +71,10 @@ const page = () => {
                         </form>
                     </Form>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className='flex flex-col items-center'>
+                    <p>
+                        Don't have an account? <Link href="/sign-up" className="hover:underline">Sign up</Link>
+                    </p>
                 </CardFooter>
         </Card>
       </div>
