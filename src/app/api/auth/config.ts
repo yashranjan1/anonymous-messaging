@@ -1,15 +1,27 @@
-import { NextAuthConfig } from "next-auth";
+import { CredentialsSignin, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import connectDB from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+
+class InvalidLoginError extends CredentialsSignin {
+    code = "Invalid identifier or password"
+}
+
+class UserNotFoundError extends CredentialsSignin {
+    code = "User not found"
+}
+
+class UserNotVerifiedError extends CredentialsSignin {
+    code = "User not verified"
+}
 
 export const authOptions: NextAuthConfig = {
     providers: [
         Credentials({
             name: "Credentials",
             credentials: {
-                email: { type: "text", placeholder: "Email", label: "Email" },
+                identifier: { type: "text", placeholder: "Email", label: "Email" },
                 password: { type: "password", placeholder: "Password", label: "Password" },
             },
             id: "credentials",
@@ -17,32 +29,42 @@ export const authOptions: NextAuthConfig = {
                 await connectDB();
                 
                 try {
+
                     const user = await UserModel.findOne({ 
                         $or: [
-                            { email: credentials.email },
-                            { username: credentials.email }
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }
                         ]
-                     });
+                    });
 
                     if (!user) {
-                        throw new Error("User not found");
+                        throw new UserNotFoundError();
                     }
 
                     if (!user.isVerified) {
-                        throw new Error("User not verified");
+                        throw new UserNotVerifiedError();
                     }
 
-                    // const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    const isPasswordCorrect = await bcrypt.compare(credentials.password?.toString() || "", user.password);
 
-                    // if (!isPasswordCorrect) {
-                    //     throw new Error("Incorrect password");
-                    // }
+                    if (!isPasswordCorrect) {
+                        throw new InvalidLoginError();
+                    }
 
                     return user;
                 } catch (error) {
-                    
-                    throw new Error("Error authenticating user");
-
+                    if (error instanceof InvalidLoginError) {
+                        throw new InvalidLoginError(error.code);
+                    }
+                    else if (error instanceof UserNotFoundError) {
+                        throw new UserNotFoundError(error.code);
+                    }
+                    else if (error instanceof UserNotVerifiedError) {
+                        throw new UserNotVerifiedError(error.code);
+                    }
+                    else {
+                        throw new Error("Error authenticating user");
+                    }
                 }
             },
         }),

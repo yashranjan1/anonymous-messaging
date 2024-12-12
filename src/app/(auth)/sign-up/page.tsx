@@ -88,89 +88,87 @@ const Page = () : React.ReactElement => {
     };
 
     return (
-        <>
-            <div className='flex flex-col items-center justify-center h-screen font-[family-name:var(--font-geist-sans)]'>
-                <Card className='w-96 p-5 drop-shadow-lg'>
-                    <CardHeader className='font-bold text-2xl text-center'>
-                        <CardTitle className='r'>Sign up</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 flex flex-col items-center">
-                                <FormField
-                                    name="username"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem className='w-full flex flex-col space-y-3'>
-                                            <FormLabel>Username</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Username" 
-                                                className='' {...field} 
-                                                onChange={(e) => {
-                                                        field.onChange(e)
-                                                        debounced(e.target.value)
-                                                    }
+        <div className="flex-1 flex items-center justify-center">
+            <Card className='w-96 p-5 drop-shadow-lg'>
+                <CardHeader className='font-bold text-2xl text-center'>
+                    <CardTitle className='r'>Sign up</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 flex flex-col items-center">
+                            <FormField
+                                name="username"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem className='w-full flex flex-col space-y-3'>
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Username" 
+                                            className='' {...field} 
+                                            onChange={(e) => {
+                                                    field.onChange(e)
+                                                    debounced(e.target.value)
                                                 }
-                                                />
-                                            </FormControl>
-                                            
-                                            {   
-                                                isCheckingUsername && 
-                                                <Loader2 className="animate-spin" />
                                             }
-                                            {
-                                                usernameMessage && 
-                                                <p className={`text-sm ${ usernameMessage === "Username is unique" ? "text-green-900" : "text-red-500" }`}>{usernameMessage}</p>
-                                            }
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="email"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem className='w-full flex flex-col space-y-3'>
-                                            <FormLabel>Email</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Email" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    name="password"
-                                    control={form.control}
-                                    render={({ field }) => (
-                                        <FormItem className='w-full flex flex-col space-y-3'>
-                                            <FormLabel>Password</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Password" type='password' {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <Button className='w-full' type="submit" disabled={isSubmitting}>
-                                    {isSubmitting ? 
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Signing up...
-                                        </> 
-                                        : "Sign up"}
-                                </Button>
-                            </form>
-                        </Form>
-                    </CardContent>
-                    <CardFooter className="flex flex-col items-center">
-                        <p>
-                            Already have an account? <Link href="/sign-in" className="hover:underline">Sign in</Link>
-                        </p>
-                    </CardFooter>
+                                            />
+                                        </FormControl>
+                                        
+                                        {   
+                                            isCheckingUsername && 
+                                            <Loader2 className="animate-spin" />
+                                        }
+                                        {
+                                            usernameMessage && 
+                                            <p className={`text-sm ${ usernameMessage === "Username is unique" ? "text-green-900" : "text-red-500" }`}>{usernameMessage}</p>
+                                        }
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="email"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem className='w-full flex flex-col space-y-3'>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Email" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="password"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem className='w-full flex flex-col space-y-3'>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Password" type='password' {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button className='w-full' type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? 
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Signing up...
+                                    </> 
+                                    : "Sign up"}
+                            </Button>
+                        </form>
+                    </Form>
+                </CardContent>
+                <CardFooter className="flex flex-col items-center">
+                    <p>
+                        Already have an account? <Link href="/sign-in" className="hover:underline">Sign in</Link>
+                    </p>
+                </CardFooter>
             </Card>
-      </div>
-        </>
+        </div>
     )
 }
 
