@@ -32,6 +32,7 @@ const Page = () => {
     const [isSwitching, setIsSwitching] = useState(false);
     const [username, setUsername] = useState("");
 
+
     const handleDeleteMessage = async (messageId: string) => {
         setMessages(messages.filter(message => message._id !== messageId));
     }
@@ -173,12 +174,16 @@ const Page = () => {
                 </div>
                 {
                     messages.length > 0 &&
-                    <ScrollArea className="grid grid-cols-2 gap-2">
-                        {messages.map((message, index) => (
-                            <MessageCard key={message._id as string} 
-                                message={message} 
-                                onDelete={handleDeleteMessage} />
-                        ))}
+                    <ScrollArea className="col-span-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-10">
+                            {messages.map((message, index) => (
+                                <MessageCard key={message._id as string} 
+                                    message={message} 
+                                    onDelete={handleDeleteMessage} 
+                                    className="col-span-2 md:col-span-1"
+                                />
+                            ))}
+                        </div>
                     </ScrollArea>
                 }
                 {

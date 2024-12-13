@@ -14,30 +14,39 @@ import {
 import { Message } from "@/model/User";
 import { toast } from "sonner";
 import { ApiResponse } from "@/types/ApiResponse";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface MessageCardProps {
     message: Message;
     onDelete: ( messageId: string ) => void;
+    className?: string;
 }
 
-const MessageCard = ({ message, onDelete }:  MessageCardProps) => {
-
+const MessageCard = ({ message, onDelete, className }:  MessageCardProps) => {
+    
     const handleDeleteConfirm = async () => {
-        const res = await axios.delete<ApiResponse>(`/api/delete-messages/${message._id}`);
-        toast.success("Message deleted", {
-            description: res.data.message,
-        });
-        onDelete(message._id as string);
-    }
 
+        try {
+            const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`
+            );
+            toast.success("Message deleted", {
+                description: "Message has been deleted"
+            });
+            onDelete(message._id as string);
+        } catch (error) {
+            const axiosError = error as AxiosError<ApiResponse>;
+            toast.error("An Error Occurred", { 
+                description: axiosError.response?.data.message 
+            });
+        } 
+    };
     return ( 
         <>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Title</CardTitle>
-                    <AlertDialog>
-                        <AlertDialogTrigger><X className="h-5 w-5" /></AlertDialogTrigger>
+            <Card className={className + " flex flex-col"}>
+                <CardHeader className="flex flex-row items-center">
+                    <CardTitle className="flex-1 mt-1.5">Message</CardTitle>
+                    <AlertDialog >
+                        <AlertDialogTrigger className="" ><X /></AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -47,17 +56,14 @@ const MessageCard = ({ message, onDelete }:  MessageCardProps) => {
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => {handleDeleteConfirm()}}>Delete</AlertDialogAction>
+                                <AlertDialogAction onClick={handleDeleteConfirm}>Delete</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
                 </CardHeader>
                 <CardContent>
-
+                    <p className="text-sm sm:text-base">{message.content}</p>
                 </CardContent>
-                <CardFooter>
-
-                </CardFooter>
             </Card>
         </>
     );
