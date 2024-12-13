@@ -10,7 +10,6 @@ import { signUpSchema } from "@/schemas/signUpSchema";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
-import { set } from "mongoose";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle,  CardContent, CardFooter } from '@/components/ui/card';

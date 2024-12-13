@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-export { auth } from "@/app/api/auth/auth";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {

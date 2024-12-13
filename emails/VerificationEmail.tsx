@@ -1,5 +1,4 @@
 import { Html, Head, Font, Preview, Row, Section, Text } from "@react-email/components";
-import exp from "constants";
 
 interface VerificationEmailProps {
     username: string;

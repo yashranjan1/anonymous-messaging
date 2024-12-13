@@ -23,8 +23,6 @@ const connectDB = async () : Promise<void> => {
     } catch (error) {
         console.error("Couldn't connect to MongoDB", error);
 
-
-        // process.exit(1);
     }
 };
 

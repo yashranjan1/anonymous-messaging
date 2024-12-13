@@ -79,12 +79,6 @@ export const authOptions: NextAuthConfig = {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        // async signIn({ user, account, profile }) {
-        //     return true;
-        // },
-        // async redirect({ url, baseUrl }) {
-        //     return baseUrl;
-        // },
         async jwt({ token, user }) {
             if (user) {
                 token._id = user._id?.toString();
