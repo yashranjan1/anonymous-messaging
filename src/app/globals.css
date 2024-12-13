@@ -6,6 +6,28 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.pulse-message {
+  animation: pulse-message 5s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes pulse-message {
+    0% {
+      box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.7);
+    }
+    14% {
+      box-shadow: 0 0 0 30px rgba(147, 197, 253, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 30px rgba(147, 197, 253, 0);
+    }
+}
+
+.lucide-icon {
+  width: unset !important;
+  height: unset !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

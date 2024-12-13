@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
     try {
         const updatedUser = await UserModel.findByIdAndUpdate(id, {
-            acceptMessages: acceptMessages,
+            isAcceptingMessages: acceptMessages,
         });
 
         if (!updatedUser) {

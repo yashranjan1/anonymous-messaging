@@ -31,7 +31,7 @@ const NavBar = () => {
     const copyLink = () => {
         navigator.clipboard.writeText(`${window.location.origin}/u/${user?.username}`);
         toast.success("Link copied to clipboard", {
-            description: "Share this link with your people to get feedback",
+            description: "Share this link with people to get feedback",
         });
     }
     const { data: session } = useSession();
@@ -40,9 +40,9 @@ const NavBar = () => {
 
     return ( 
         <>
-            <nav className="flex items-center justify-between mx-8 xl:mx-56 2xl:mx-80">
+            <nav className="flex items-center justify-between">
                 <div className="">
-                    <Link href={"/"} className="text-3xl font-bold tracking-tight sm:text-4xl">messages</Link>
+                    <Link href={"/"} className="text-3xl font-bold tracking-tight sm:text-4xl select-none">messages</Link>
                 </div>
                 <div className="flex-1 justify-items-end">
                     <div>
@@ -83,7 +83,7 @@ const NavBar = () => {
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
-                            : <Link href={'/sign-in'}>Sign In</Link>
+                            : <Link href={'/sign-in'} className="font-semibold sm:text-xl">Sign In</Link>
                         }
                     </div>
                 </div>

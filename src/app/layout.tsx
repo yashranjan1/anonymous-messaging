@@ -40,7 +40,7 @@ export default function RootLayout({
         >
           
         <AuthProvider>
-          <div className="flex min-h-screen flex-col py-8 px-4 sm:px-6 lg:px-8 font-[family-name:var(--font-geist-sans)] selection:bg-blue-800/10 selection:text-blue-900">
+          <div className="flex min-h-screen flex-col py-4 sm:py-8 px-2 sm:px-6 lg:px-8 font-[family-name:var(--font-geist-sans)] selection:bg-blue-800/10 selection:text-blue-900 mx-2 2xl:mx-80 ">
             <NavBar />
             <div className="flex-1 flex flex-col">
               {children}

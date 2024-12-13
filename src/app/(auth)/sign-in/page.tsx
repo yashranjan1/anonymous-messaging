@@ -88,7 +88,7 @@ const page = () => {
 
     return (
         <div className='flex-1 flex justify-center items-center'>
-            <Card className='w-96 p-5 drop-shadow-lg'>
+            <Card className='w-96 p-0.5 sm:p-5 drop-shadow-lg'>
                 <CardHeader className='font-bold text-2xl text-center'>
                     <CardTitle className='r'>Login</CardTitle>
                 </CardHeader>
@@ -131,7 +131,7 @@ const page = () => {
                     </Form>
                 </CardContent>
                 <CardFooter className='flex flex-col items-center'>
-                    <p>
+                    <p className='text-sm sm:text-md'>
                         Don't have an account? <Link href="/sign-up" className="hover:underline">Sign up</Link>
                     </p>
                 </CardFooter>

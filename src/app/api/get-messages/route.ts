@@ -24,6 +24,7 @@ export async function GET(req: Request) {
     const id = new mongoose.Types.ObjectId(user.id);
 
     try {
+
         const user = await UserModel.aggregate([
             {
                 $match: {
@@ -51,7 +52,7 @@ export async function GET(req: Request) {
         if (!user || user.length === 0) {
             return Response.json({
                 success: false,
-                message: "User not found",
+                message: "You have no messages",
             }, {
                 status: 404,
             });

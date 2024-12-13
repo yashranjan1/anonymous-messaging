@@ -89,7 +89,7 @@ const Page = () : React.ReactElement => {
 
     return (
         <div className="flex-1 flex items-center justify-center">
-            <Card className='w-96 p-5 drop-shadow-lg'>
+            <Card className='w-96 p-0.5 drop-shadow-lg sm:p-5'>
                 <CardHeader className='font-bold text-2xl text-center'>
                     <CardTitle className='r'>Sign up</CardTitle>
                 </CardHeader>
@@ -163,7 +163,7 @@ const Page = () : React.ReactElement => {
                     </Form>
                 </CardContent>
                 <CardFooter className="flex flex-col items-center">
-                    <p>
+                    <p className='text-sm sm:text-md'>
                         Already have an account? <Link href="/sign-in" className="hover:underline">Sign in</Link>
                     </p>
                 </CardFooter>
