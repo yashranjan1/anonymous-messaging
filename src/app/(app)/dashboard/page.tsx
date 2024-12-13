@@ -10,8 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
-import { User } from "next-auth";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label";
 import { Check, Clipboard, Loader2 } from "lucide-react";
@@ -22,7 +21,6 @@ import {
   } from "@/components/ui/hover-card"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import MessageCard from "@/components/message-card";
-import { set } from "mongoose";
 import { Skeleton } from "@/components/ui/skeleton";
   
 
@@ -122,7 +120,7 @@ const Page = () => {
     const [tick, setTick] = useState(false);
     
     const copyLink = () => {
-        navigator.clipboard.writeText(baseUrl);
+        navigator.clipboard.writeText(baseUrl + username);
         toast.success("Link copied to clipboard", {
             description: "Share this link with people to get feedback",
         });
@@ -134,7 +132,7 @@ const Page = () => {
 
     return ( 
         <>
-            <div className="flex-1 grid grid-cols-12 gap-5 sm:gap-10 mt-10 sm:mt-16 grid-rows-[auto,1fr]">
+            <div className="flex-1 grid grid-cols-12 gap-5 sm:gap-10 grid-rows-[auto,1fr]">
                 <div className="col-span-12 flex flex-col justify-start lg:flex-row items-center gap-5">
                     <h1 className="text-4xl font-bold tracking-wide sm:text-5xl text-left flex-1">Inbox</h1>
                     <div className="flex flex-col sm:flex-row gap-5 items-center">                    
@@ -143,15 +141,17 @@ const Page = () => {
                                 username.length > 0 &&
                                 
                                 <Label className="p-2 font-[family-name:var(--font-geist-mono)] text-xs sm:text-md">{baseUrl + username }</Label>
+                                
                             }
                             {
                                 username.length === 0 &&
-                                <Skeleton className="h-4 w-[200px] ml-1 rounded-full" />
+                                <Skeleton className="h-4 w-[200px] ml-1 mr-10 my-1.5 rounded-full" />
                             }
-                            { !tick && 
+                            
+                            { username.length > 0 && !tick && 
                                 <Clipboard className="lucide-icon px-3 py-3 me-0.5 rounded cursor-pointer hover:bg-zinc-800/90" size={15} onClick={copyLink} />
                             }
-                            { tick && 
+                            { username.length > 0 && tick && 
                                 <Check className="lucide-icon px-2 py-2 me-0.5" size={23}/>
                             }
                         </Card>

@@ -8,20 +8,16 @@ import { signInSchema } from '@/schemas/signInSchema';
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from "next/link";
 import { toast } from 'sonner';
-import { ApiResponse } from '@/types/ApiResponse';
 import { useRouter } from 'next/navigation';
-import axios, { AxiosError } from 'axios';
 import { Loader2 } from 'lucide-react';
 
 const page = () => {
@@ -49,8 +45,6 @@ const page = () => {
         });
 
         if (res?.error) {
-
-            console.log(res.code);
 
             if (res.code === "Invalid identifier or password") {
                 toast.error("Invalid login details", {
