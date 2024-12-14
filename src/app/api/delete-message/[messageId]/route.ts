@@ -4,9 +4,9 @@ import { User } from "next-auth";
 import { auth } from "@/app/api/auth/auth";
 
 interface Params {
-    params: {
+    params: Promise<{
         messageId: string;
-    };
+    }>
 }
 
 
