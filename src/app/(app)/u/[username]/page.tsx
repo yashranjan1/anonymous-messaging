@@ -12,7 +12,6 @@ import {
     FormDescription,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
@@ -39,7 +38,7 @@ const Page = () => {
     const onSubmit = async (data: z.infer<typeof messageSchema>) => {
         setIsSubmitting(true);
         try {
-            const response = await axios.post(`/api/send-message`, {
+            await axios.post(`/api/send-message`, {
                 username,
                 content: data.content
             });

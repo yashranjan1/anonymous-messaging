@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import {  Input } from '@/components/ui/input';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
-const page = () => {
+const SignInPage = () => {
 
     const router = useRouter();
 
@@ -126,7 +126,7 @@ const page = () => {
                 </CardContent>
                 <CardFooter className='flex flex-col items-center'>
                     <p className='text-sm sm:text-md'>
-                        Don't have an account? <Link href="/sign-up" className="hover:underline">Sign up</Link>
+                        Don&apos;t have an account? <Link href="/sign-up" className="hover:underline">Sign up</Link>
                     </p>
                 </CardFooter>
             </Card>
@@ -134,4 +134,4 @@ const page = () => {
     );    
 };
 
-export default page;
+export default SignInPage;

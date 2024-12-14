@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -27,7 +27,7 @@ const MessageCard = ({ message, onDelete, className }:  MessageCardProps) => {
     const handleDeleteConfirm = async () => {
 
         try {
-            const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`
+            await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`
             );
             toast.success("Message deleted", {
                 description: "Message has been deleted"

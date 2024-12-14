@@ -4,7 +4,7 @@ import { User } from "next-auth";
 import { auth } from "@/app/api/auth/auth";
 import mongoose from "mongoose";
 
-export async function GET(req: Request) {
+export async function GET() {
 
     await connectDB();
 

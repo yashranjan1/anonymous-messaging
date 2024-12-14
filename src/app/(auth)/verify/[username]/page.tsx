@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { verifySchema } from '@/schemas/verifySchema';
 import axios, { AxiosError } from 'axios';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
@@ -59,7 +59,7 @@ const Page = () => {
 
         const checkIfUsernameIsVerified = async () => {
             try {
-                const res = await axios.get(`/api/verify-code?username=${param.username}`);
+                await axios.get(`/api/verify-code?username=${param.username}`);
 
             } catch (error) {
                 const axiosError = error as AxiosError<ApiResponse>;
@@ -80,7 +80,7 @@ const Page = () => {
         }   
 
         checkIfUsernameIsVerified();
-    }, [])
+    }, [param.username])
 
 
 

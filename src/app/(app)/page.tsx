@@ -8,8 +8,6 @@ import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
   } from "@/components/ui/carousel"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay"
@@ -66,7 +64,7 @@ const Page = () : React.ReactElement => {
 				>
 				<CarouselContent>
 					{
-						messagesList.map(({ name, message}, index) => (
+						messagesList.map(({ name, message}) => (
 							<CarouselItem key={name} className="p-10 mx-0.5">
 								<div className="p-1">
 									<Card className="select-none pulse-message">

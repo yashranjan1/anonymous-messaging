@@ -13,7 +13,7 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label";
-import { Check, Clipboard, Loader2 } from "lucide-react";
+import { Check, Clipboard } from "lucide-react";
 import {
     HoverCard,
     HoverCardContent,
@@ -28,7 +28,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 const Page = () => {
 
     const [messages, setMessages] = useState<Message[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [isSwitching, setIsSwitching] = useState(false);
     const [username, setUsername] = useState("");
 
@@ -58,12 +57,10 @@ const Page = () => {
                 description: axiosError.response?.data.message,
             });
         } finally {
-            setIsLoading(false);
         }
     }, [setValue]);
 
     const fetchMessages = useCallback(async (refresh: boolean = false) => {
-        setIsLoading(true);
         setIsSwitching(false);
         try {
             const response = await axios.get<ApiResponse>(`/api/get-messages`);
@@ -82,10 +79,9 @@ const Page = () => {
                 });
             }
         } finally {
-            setIsLoading(false);
             setIsSwitching(false);
         }
-    }, [setMessages, setIsLoading]);
+    }, [setMessages]);
 
     useEffect(() => {
         if (!session || !session.user) {
@@ -176,7 +172,7 @@ const Page = () => {
                     messages.length > 0 &&
                     <ScrollArea className="col-span-12">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-10">
-                            {messages.map((message, index) => (
+                            {messages.map((message) => (
                                 <MessageCard key={message._id as string} 
                                     message={message} 
                                     onDelete={handleDeleteMessage} 
@@ -193,6 +189,7 @@ const Page = () => {
                         <p className="text-sm sm:text-2xl font-thin text-center">You have no messages right now, share your link with your friends to get feedback!</p>
                     </div>
                 }
+                
             </div>
         </>
     );
