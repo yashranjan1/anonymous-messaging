@@ -1,4 +1,4 @@
-import { CredentialsSignin, NextAuthConfig } from "next-auth";
+import { CredentialsSignin, NextAuthConfig, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import connectDB from "@/lib/dbConnect";
@@ -25,7 +25,7 @@ export const authOptions: NextAuthConfig = {
                 password: { type: "password", placeholder: "Password", label: "Password" },
             },
             id: "credentials",
-            async authorize(credentials) : Promise<any> {
+            async authorize(credentials) : Promise<User> {
                 await connectDB();
                 
                 try {
@@ -51,7 +51,7 @@ export const authOptions: NextAuthConfig = {
                         throw new InvalidLoginError();
                     }
 
-                    return user;
+                    return user as User;
                 } catch (error) {
                     if (error instanceof InvalidLoginError) {
                         throw new InvalidLoginError(error.code);
