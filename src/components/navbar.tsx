@@ -40,10 +40,10 @@ const NavBar = () => {
     return ( 
         <>
             <nav className="flex items-center justify-between">
-                <div className="">
+                <div className="flex-1">
                     <Link href={"/"} className="text-3xl font-bold tracking-tight sm:text-4xl select-none">messages</Link>
                 </div>
-                <div className="flex-1 justify-items-end">
+                <div className="">
                     <div>
                         {
                             session ? 
