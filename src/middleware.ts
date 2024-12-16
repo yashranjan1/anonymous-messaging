@@ -6,6 +6,8 @@ export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
     const url = new URL(request.nextUrl);
 
+    console.log(token)
+
     if (token && 
         (
             url.pathname === "/sign-in" || 
