@@ -75,7 +75,7 @@ const SignInPage = () => {
             toast.success("Signed in successful", {
                 description: "You've been signed in",
             });
-            router.replace(res.url);
+            router.replace("/dashboard");
         }
     };
 

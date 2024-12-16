@@ -1,20 +1,21 @@
 "use client";
 
 import { useParams, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { verifySchema } from '@/schemas/verifySchema';
 import axios, { AxiosError } from 'axios';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
 import { ApiResponse } from '@/types/ApiResponse';
+import { Loader2 } from 'lucide-react';
 
 const Page = () => {
 
@@ -23,12 +24,27 @@ const Page = () => {
         username: string;
     }>();
 
+    const [otp, setOtp] = useState("");
+
     const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),
         defaultValues: {
           verifyCode: ""
         },
     });
+
+    const getOtp = async () => {
+
+        try {
+            const res = await axios.get(`/api/get-verify-code/${param.username}`);
+            if (res.data.success) {
+                setOtp(res.data.otp);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
 
     const onSubmit = async (data: z.infer<typeof verifySchema>) => {
         try {
@@ -80,13 +96,14 @@ const Page = () => {
         }   
 
         checkIfUsernameIsVerified();
+        getOtp(); // remove if you get a domain
     }, [param.username])
 
 
 
     return ( 
         <div className='flex-1 flex justify-center items-center'>
-            <Card className='drop-shadow-lg sm:max-w-fit py-5 px-7'>
+            <Card className='drop-shadow-lg sm:max-w-96 py-5 px-7'>
                 <CardHeader className='font-bold text-2xl text-center'>
                     <CardTitle className='r'>Verify your account</CardTitle>
                 </CardHeader>
@@ -121,6 +138,16 @@ const Page = () => {
                         </form>
                     </Form>
                 </CardContent>
+                <CardFooter className='flex flex-col items-center text-wrap'>
+                    <h1 className='text-sm sm:text-md text-center'>
+                    Unfortunately, I do not own a domain at this point so Resend will not send you an OTP. Your otp is:  
+                    {
+                        otp ? 
+                            <span className='font-bold'>{otp}</span>
+                            : <Loader2 className="ml-2 h-4 w-4 animate-spin inline-block" />
+                    }
+                    </h1>
+                </CardFooter>
             </Card>
         </div> 
     );

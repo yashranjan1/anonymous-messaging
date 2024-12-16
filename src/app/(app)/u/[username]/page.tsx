@@ -50,8 +50,8 @@ const Page = () => {
         } catch (error) {
             const axiosError = error as AxiosError;
             if (axiosError.response?.status === 403) {
-                toast.error("You are not accepting messages", {
-                    description: "You have to accept messages before you can send feedback"
+                toast.error("User is not accepting messages", {
+                    description: "User is not accepting messages at this time. Please try again later"
                 });
                 return;
             }
