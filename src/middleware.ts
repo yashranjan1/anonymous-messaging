@@ -3,10 +3,8 @@ import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
 
-    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET, cookieName: "__Secure-authjs.session-token" });
     const url = new URL(request.nextUrl);
-
-    console.log("cookies" + request.cookies)
 
     if (token && 
         (

@@ -76,7 +76,6 @@ const SignInPage = () => {
                 description: "You've been signed in",
             });
             router.replace(res.url);
-            console.log(res.url);
         }
     };
 
