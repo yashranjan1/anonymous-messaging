@@ -6,6 +6,8 @@ export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET, cookieName: "__Secure-authjs.session-token" });
     const url = new URL(request.nextUrl);
 
+    console.log("token", token);
+
     if (token && 
         (
             url.pathname === "/sign-in" || 
